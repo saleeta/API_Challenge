@@ -23,7 +23,6 @@ except Exception as e:
 class FlaskTest(unittest.TestCase):
 
     # check for response 200
-
     def test_encode_index(self):
         payload = read_file('inputEncode.json')
         response = requests.post(url + "/api/encode", payload)
@@ -49,6 +48,7 @@ class FlaskTest(unittest.TestCase):
         self.assertEqual(
             (JsonKeys.code.value in response_dict) and (validators.url(response_dict.get(JsonKeys.code.value))), True)
 
+    # check for response 200
     def test_decode_index(self):
         payload = read_file('inputDecode.json')
         response = requests.post(url + "/api/decode", payload)
@@ -66,7 +66,7 @@ class FlaskTest(unittest.TestCase):
             json_test = False
         self.assertEqual(json_test, True)
 
-    # check for data returned for correct data
+    # check for data returned for correct data type
     def test_decoder_data(self):
         payload = read_file('inputDecode.json')
         response = requests.post(url + "/api/decode", payload)
@@ -84,6 +84,8 @@ class FlaskTest(unittest.TestCase):
         json_dict= json.loads(payload)
         self.assertEqual(json_dict.get(JsonKeys.url.value), response_decode.json().get(JsonKeys.url.value),
                          "The data returned from decoder was not mapped correctly to the shortlink")
+
+
 
 
 if __name__ == "__main__":
