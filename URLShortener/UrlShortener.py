@@ -39,6 +39,6 @@ class UrlShortener:
     def lookup(self, code: str) -> dict:
 
         if code in self.urls_dict:
-            return {"URL": self.urls_dict.get(code)}
+            return {"url": self.urls_dict.get(code)}
         else:
-            return {"Message": "There is no such short link"}
+            return {"Error": "There is no such short link"}

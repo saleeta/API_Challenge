@@ -2,8 +2,7 @@ from flask import Flask, request
 from URLShortener.UrlShortener import UrlShortener
 import json
 import validators
-import base64
-import hashlib
+
 
 app = Flask(__name__)
 url_shortener = UrlShortener()
@@ -36,10 +35,11 @@ def encoding() -> json:
         return json.dumps({"Error": "Input is not in the correct format"})
 
 
-@app.route('/api/decode', methods=['GET'])
+@app.route('/api/decode', methods=['POST'])
 def decoding() -> json:
     request_data = request.get_json(force=True)
     code = request_data.get('code')
+
     if code.startswith("""https://short.est/""") and validators.url(code):
         return json.dumps(url_shortener.lookup(code[18:]))
     else:
