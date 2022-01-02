@@ -1,12 +1,12 @@
 import json
 from pathlib import Path
 import os
-from enumCollection import JsonKeys
+from .enumCollection import JsonKeys
 
 
 def read_file(file_name):
     script_dir = os.path.dirname(__file__)
-    file_path = os.path.join(script_dir, 'input.json')
+    file_path = os.path.join(script_dir, file_name)
 
     try:
         with open(file_path, 'r') as f:
