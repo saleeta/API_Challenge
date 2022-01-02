@@ -9,7 +9,7 @@ try:
     import requests
     import validators
     import sys
-    from enumCollection import JsonKeys
+    from utils.enumCollection import JsonKeys
 
     # put it in the enviorment variable
     global url

@@ -1,5 +1,10 @@
 import base64
 import hashlib
+import os
+import sys
+
+sys.path.append(os.path.dirname(__file__))
+from enumCollection import JsonKeys  # noqa: E402
 
 
 class UrlShortener:
@@ -31,14 +36,15 @@ class UrlShortener:
     def encode(self, url: str) -> dict:
 
         if url in self.urls_dict.values():
-            return {"ShortLink": self.domain + list(self.urls_dict.keys())[list(self.urls_dict.values()).index(url)]}
+            return {JsonKeys.code.value: self.domain + list(self.urls_dict.keys())[
+                list(self.urls_dict.values()).index(url)]}
         else:
             code = self.shortener(url)
-            return {"ShortLink": self.domain + code}
+            return {JsonKeys.code.value: self.domain + code}
 
     def lookup(self, code: str) -> dict:
 
         if code in self.urls_dict:
-            return {"url": self.urls_dict.get(code)}
+            return {JsonKeys.url.value: self.urls_dict.get(code)}
         else:
-            return {"Error": "There is no such short link"}
+            return {JsonKeys.error.value: "There is no such short link"}
