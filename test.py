@@ -21,15 +21,17 @@ except Exception as e:
 
 class FlaskTest(unittest.TestCase):
 
-    # check for response 200 for to encode API
     def test_encode_index(self):
+        """Checks for response 200 for to encode API
+        """
         payload = read_file(file_name='inputEncode.json')
         response = requests.post(url + "/api/encode", payload)
         statuscode = response.status_code
         self.assertEqual(statuscode, 200, "The encode API is not functioning")
 
-    # check output is JSON or dict for to encode API
     def test_encoder_json(self):
+        """Checks output is JSON or dict for to encode API
+        """
         payload = read_file(file_name='inputEncode.json')
         response = requests.post(url + "/api/encode", payload)
         try:
@@ -39,8 +41,9 @@ class FlaskTest(unittest.TestCase):
             json_test = False
         self.assertEqual(json_test, True, "The return value from encode API is not a JSON/Dictionary")
 
-    # check for data returned for correct data for to encode API
     def test_encoder_data(self):
+        """Checks for data returned for correct data for to encode API
+        """
         payload = read_file(file_name='inputEncode.json')
         response = requests.post(url + "/api/encode", payload)
         response_dict = response.json()
@@ -48,15 +51,17 @@ class FlaskTest(unittest.TestCase):
             (JsonKeys.code.value in response_dict) and (validators.url(response_dict.get(JsonKeys.code.value))), True,
             "The return value from encode API is not in the correct JSON or URL format")
 
-    # check for response 200 for to decode API
     def test_decode_index(self):
+        """Checks for response 200 for to decode API
+        """
         payload = read_file(file_name='inputDecode.json')
         response = requests.post(url + "/api/decode", payload)
         statuscode = response.status_code
         self.assertEqual(statuscode, 200, "The decode API is not functioning")
 
-    # check output is JSON or dict for to decode API
     def test_decoder_json(self):
+        """Checks output is JSON or dict for to decode API
+        """
         payload = read_file(file_name='inputDecode.json')
         response = requests.post(url + "/api/decode", payload)
         try:
@@ -66,8 +71,9 @@ class FlaskTest(unittest.TestCase):
             json_test = False
         self.assertEqual(json_test, True, "The return value from decode API is not a JSON/Dictionary")
 
-    # check for data returned for correct data type for to decode API
     def test_decoder_data(self):
+        """Checks for data returned for correct data type for to decode API
+        """
         payload = read_file(file_name='inputDecode.json')
         response = requests.post(url + "/api/decode", payload)
         response_dict = response.json()
@@ -76,8 +82,9 @@ class FlaskTest(unittest.TestCase):
                                                                          response_dict.get(JsonKeys.url.value)))), True,
                          "The return value from decode API is not in the correct JSON or URL format")
 
-    # E2E testing
     def test_e2e_testing(self):
+        """End-to-End testing
+        """
         payload = read_file(file_name='inputEncode.json')
         response_encode = requests.post(url + "/api/encode", payload)
         response_decode = requests.post(url + "/api/decode", json.dumps(response_encode.json()))
