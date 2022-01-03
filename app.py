@@ -10,25 +10,28 @@ url_shortener = UrlShortener()
 
 @app.route('/')
 def home() -> str:
-    """[summary]
+    """Default route
 
-    Returns:
-        str: [description]
+        Returns:
+            str: Returns "Hello World"
     """
-    return "App Works!!!"
+    return "Hello World"
 
 
 @app.route('/api/encode', methods=['POST'])
-def encoding() -> json:
-    """
+def encoding() -> str:
+    """Receives a URL as an input in the JSON format for example
+                {"url" : "https://foobar.withgoogle.com/"}
 
-    :return:
+        Returns:
+            json: Returns the short link
+                  Returns errors in case in incorrect json format or incorrect URL format
     """
     request_data = request.get_json(force=True)
     if JsonKeys.url.value in request_data:
         url = request_data[JsonKeys.url.value]
-        if validators.url(url):
-            return json.dumps(url_shortener.encode(url))
+        if validators.url(value=url):
+            return json.dumps(url_shortener.encode(url=url))
         else:
             return json.dumps({JsonKeys.error.value: "URL is not in the correct format"})
     else:
@@ -37,11 +40,18 @@ def encoding() -> json:
 
 @app.route('/api/decode', methods=['POST'])
 def decoding() -> json:
+    """Receives a short link as an input in the JSON format for example
+                {"ShortLink": "https://short.est/ZQw6Y5rSEEk"}
+
+        Returns:
+            json: Returns the mapped URL
+                  Returns errors in case in incorrect json format or incorrect short link format
+    """
     request_data = request.get_json(force=True)
     code = request_data.get(JsonKeys.code.value)
 
-    if code.startswith("""https://short.est/""") and validators.url(code):
-        return json.dumps(url_shortener.lookup(code[18:]))
+    if code.startswith("""https://short.est/""") and validators.url(value=code):
+        return json.dumps(url_shortener.lookup(code=code[18:]))
     else:
         return json.dumps({JsonKeys.error.value: "Short URL is not in the correct format"})
 

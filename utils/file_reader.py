@@ -4,7 +4,15 @@ import os
 from .enumCollection import JsonKeys
 
 
-def read_file(file_name):
+def read_file(file_name: str)-> str :
+    """Takes a file name and reads it.
+
+    Args:
+        file_name (str): Path of file from the main directory
+
+    Returns:
+        str: Returns a JSON of the contents of the file
+    """
     script_dir = os.path.dirname(__file__)
     file_path = os.path.join(script_dir, file_name)
 
