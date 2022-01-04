@@ -24,8 +24,8 @@ def encoding() -> str:
                 {"url" : "https://foobar.withgoogle.com/"}
 
         Returns:
-            json: Returns the short link
-                  Returns errors in case in incorrect json format or incorrect URL format
+            str:  Returns the short link in JSON format
+                  Returns errors in case in incorrect json format or incorrect URL format in JSON format
     """
     request_data = request.get_json(force=True)
     if JsonKeys.url.value in request_data:
@@ -39,13 +39,13 @@ def encoding() -> str:
 
 
 @app.route('/api/decode', methods=['POST'])
-def decoding() -> json:
+def decoding() -> str:
     """Receives a short link as an input in the JSON format for example
                 {"ShortLink": "https://short.est/ZQw6Y5rSEEk"}
 
         Returns:
-            json: Returns the mapped URL
-                  Returns errors in case in incorrect json format or incorrect short link format
+            str: Returns the mapped URL in JSON format
+                  Returns errors in case in incorrect json format or incorrect short link format in JSON format
     """
     request_data = request.get_json(force=True)
     code = request_data.get(JsonKeys.code.value)

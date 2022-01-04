@@ -4,7 +4,7 @@ import os
 from .enumCollection import JsonKeys
 
 
-def read_file(file_name: str)-> str :
+def read_file(file_name: str) -> str:
     """Takes a file name and reads it.
 
     Args:
