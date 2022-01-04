@@ -23,10 +23,22 @@ Building a docker image file: `docker build . -t doc-flask:v1`
 
 Running a docker image file: `docker run -p 5000:5000 doc-flask:v1`
 
+
 ## Running tests
 Tests can be run via  
 
 `python -m test`
+
+## Commands
+The encode api can be called using 
+`HOST:PORT/api/encode` and being passed a JSON value like:`{
+  "url": "https://www.google.com/"
+}`
+
+The decode api can be called using 
+`HOST:PORT/api/decode` and being passed a JSON value like:`{
+  "ShortLink": "https://short.est/ZQw6Y5rSEEk"
+}`
 
 ## Documentation
 The sphinx generated documentation can be found int the main folder as an HTML.

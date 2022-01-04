@@ -32,10 +32,10 @@ class UrlShortener:
             incremented = int.from_bytes(md5_digest, 'big') + 1
             try:
                 md5_digest = bytearray(incremented.to_bytes(len(md5_digest), 'big'))
-                base_64 = base64.b64encode(md5_digest[-8:]).decode("UTF-8").replace("=", "").replace("/", "_")
+                base_64 = base64.b64encode(s=md5_digest[-8:]).decode("UTF-8").replace("=", "").replace("/", "_")
             except OverflowError:
                 md5_digest = bytearray(len(md5_digest))
-                base_64 = base64.b64encode(md5_digest[-8:]).decode("UTF-8").replace("=", "").replace("/", "_")
+                base_64 = base64.b64encode(s=md5_digest[-8:]).decode("UTF-8").replace("=", "").replace("/", "_")
 
         self.urls_dict[base_64] = url
         return base_64
