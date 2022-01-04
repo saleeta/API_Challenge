@@ -3,7 +3,7 @@ from utils.UrlShortener import UrlShortener
 from utils.enumCollection import JsonKeys
 import json
 import validators
-
+from config import CONFIG
 app = Flask(__name__)
 url_shortener = UrlShortener()
 
@@ -50,8 +50,8 @@ def decoding() -> str:
     request_data = request.get_json(force=True)
     code = request_data.get(JsonKeys.code.value)
 
-    if code.startswith("""https://short.est/""") and validators.url(value=code):
-        return json.dumps(url_shortener.lookup(code=code[18:]))
+    if code.startswith(CONFIG.get("URL_PREFIX")) and validators.url(value=code):
+        return json.dumps(url_shortener.lookup(code=code[len(CONFIG.get("URL_PREFIX")):]))
     else:
         return json.dumps({JsonKeys.error.value: "Short URL is not in the correct format"})
 

@@ -1,11 +1,14 @@
 import base64
 import hashlib
 from .enumCollection import JsonKeys
+import sys
+sys.path.append('..')
+from config import CONFIG
 
 
 class UrlShortener:
     url_dict = {}
-    domain = """https://short.est/"""
+    domain = CONFIG.get("URL_PREFIX")
 
     def __init__(self):
         self.urls_dict = self.url_dict

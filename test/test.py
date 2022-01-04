@@ -12,7 +12,7 @@ try:
     from unittest.mock import patch
     from utils.file_reader import read_file
     from utils.enumCollection import JsonKeys
-    from config import URL
+    from config import CONFIG
 
     # put it in the environment variable
     global url
@@ -96,5 +96,5 @@ class FlaskTest(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    url = URL.get("environment1")
+    url = CONFIG.get("HOST")+":"+CONFIG.get("PORT")
     unittest.main()
